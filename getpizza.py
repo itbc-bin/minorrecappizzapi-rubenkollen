@@ -19,5 +19,12 @@ def getOnePizza(name):
         if pizza['name']== name:
             resultPizza.append(pizza)
     return jsonify ({'pizzaDB':resultPizza})
+
+@app.route("/",methods=["POST"])
+def addOnePizza():
+    pizza = {"name" : request.json["name"]}
+    pizzaDB.append(pizza)
+    return jsonify({"pizzaDB" : pizzaDB})
+
 if __name__ == '__main__':
     app.run()
