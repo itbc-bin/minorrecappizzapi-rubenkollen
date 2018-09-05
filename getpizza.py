@@ -22,7 +22,17 @@ def getOnePizza(name):
 
 @app.route("/",methods=["POST"])
 def addOnePizza():
-    pizza = {"name" : request.json["name"]}
+    pizzaNaam = request.json["name"]
+    ingr = request.json["ingredienten"]
+    for pizzasmaak in pizzaDB:
+        if pizzasmaak["name"] == pizzaNaam:
+            for pizzaspul in ingr:
+                if pizzaspul not in pizzasmaak["ingredienten"]:
+                    pizzasmaak["ingredienten"].append(pizzaspul)
+            return jsonify({"pizzaDB": pizzaDB})
+
+
+    pizza = {"name":pizzaNaam,"ingredienten":ingr}
     pizzaDB.append(pizza)
     return jsonify({"pizzaDB" : pizzaDB})
 
